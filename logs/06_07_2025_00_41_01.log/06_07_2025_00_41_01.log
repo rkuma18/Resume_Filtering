@@ -1,0 +1,30 @@
+[2025-06-07 00:41:02,670] 14 root - INFO - Starting data ingestion
+[2025-06-07 00:41:02,670] 24 root - INFO - Entered the data ingestion method or component
+[2025-06-07 00:41:03,182] 28 root - INFO - Read the dataset as dataframe
+[2025-06-07 00:41:04,210] 33 root - INFO - Train Test split initiated
+[2025-06-07 00:41:04,865] 41 root - INFO - Ingestion of data is completed
+[2025-06-07 00:41:04,869] 17 root - INFO - Data ingestion completed. Train data: artifacts/train.csv, Test data: artifacts/test.csv
+[2025-06-07 00:41:04,869] 20 root - INFO - Starting data transformation
+[2025-06-07 00:41:05,799] 60 root - INFO - Train and test CSV files loaded.
+[2025-06-07 00:41:07,348] 70 root - INFO - Cleaned Resume_str columns in both train and test data.
+[2025-06-07 00:41:07,431] 84 root - INFO - Target labels encoded.
+[2025-06-07 00:41:08,222] 91 root - INFO - TF-IDF transformation completed.
+[2025-06-07 00:41:08,231] 99 root - INFO - TF-IDF vectorizer saved successfully.
+[2025-06-07 00:41:08,233] 25 root - INFO - Data transformation completed. Preprocessor saved at: artifacts/preprocessor.pkl
+[2025-06-07 00:41:08,233] 28 root - INFO - Starting model training
+[2025-06-07 00:41:08,233] 33 root - INFO - Starting model training pipeline for classification
+[2025-06-07 00:41:08,234] 79 root - INFO - Training Random Forest
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training Random Forest: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training Gradient Boosting
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training Gradient Boosting: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training Logistic Regression
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training Logistic Regression: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training XGBoost
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training XGBoost: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training Naive Bayes
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training Naive Bayes: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training SVC
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training SVC: name 'param' is not defined
+[2025-06-07 00:41:08,234] 79 root - INFO - Training AdaBoost
+[2025-06-07 00:41:08,234] 94 root - ERROR - Error training AdaBoost: name 'param' is not defined
+[2025-06-07 00:41:08,234] 34 root - ERROR - Error in training pipeline: Error occurred in python script name [/Users/rkuma07/Desktop/Resume_Filtering/src/components/model_trainer.py] line number [98] error message [CustomException.__init__() missing 1 required positional argument: 'error_detail']

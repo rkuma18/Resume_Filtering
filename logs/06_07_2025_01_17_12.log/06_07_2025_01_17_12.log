@@ -1,0 +1,15 @@
+[2025-06-07 01:17:13,281] 14 root - INFO - Starting data ingestion
+[2025-06-07 01:17:13,282] 24 root - INFO - Entered the data ingestion method or component
+[2025-06-07 01:17:13,754] 28 root - INFO - Read the dataset as dataframe
+[2025-06-07 01:17:14,355] 33 root - INFO - Train Test split initiated
+[2025-06-07 01:17:15,107] 41 root - INFO - Ingestion of data is completed
+[2025-06-07 01:17:15,132] 17 root - INFO - Data ingestion completed. Train data: artifacts/train.csv, Test data: artifacts/test.csv
+[2025-06-07 01:17:15,133] 20 root - INFO - Starting data transformation
+[2025-06-07 01:17:15,134] 65 root - INFO - Loading training and test data.
+[2025-06-07 01:17:17,014] 82 root - INFO - Resume text cleaned successfully.
+[2025-06-07 01:17:17,015] 91 root - INFO - Training label distribution: {'AVIATION': 96, 'HEALTHCARE': 95, 'DESIGNER': 88, 'ADVOCATE': 88, 'FITNESS': 98, 'CHEF': 94, 'FINANCE': 99, 'BANKING': 92, 'INFORMATION-TECHNOLOGY': 94, 'AUTOMOBILE': 30, 'AGRICULTURE': 55, 'CONSULTANT': 95, 'HR': 92, 'CONSTRUCTION': 78, 'BUSINESS-DEVELOPMENT': 93, 'DIGITAL-MEDIA': 71, 'PUBLIC-RELATIONS': 94, 'ENGINEERING': 97, 'ARTS': 85, 'SALES': 87, 'ACCOUNTANT': 89, 'TEACHER': 80, 'APPAREL': 77, 'BPO': 20}
+[2025-06-07 01:17:17,015] 98 root - INFO - Target labels encoded. Classes: ['ACCOUNTANT', 'ADVOCATE', 'AGRICULTURE', 'APPAREL', 'ARTS', 'AUTOMOBILE', 'AVIATION', 'BANKING', 'BPO', 'BUSINESS-DEVELOPMENT', 'CHEF', 'CONSTRUCTION', 'CONSULTANT', 'DESIGNER', 'DIGITAL-MEDIA', 'ENGINEERING', 'FINANCE', 'FITNESS', 'HEALTHCARE', 'HR', 'INFORMATION-TECHNOLOGY', 'PUBLIC-RELATIONS', 'SALES', 'TEACHER']
+[2025-06-07 01:17:17,698] 105 root - INFO - TF-IDF transformation completed.
+[2025-06-07 01:17:17,703] 112 root - INFO - TF-IDF vectorizer saved at: artifacts/preprocessor.pkl
+[2025-06-07 01:17:17,704] 119 root - INFO - Label encoder saved at: artifacts/label_encoder.pkl
+[2025-06-07 01:17:17,707] 34 root - ERROR - Error in training pipeline: too many values to unpack (expected 5)

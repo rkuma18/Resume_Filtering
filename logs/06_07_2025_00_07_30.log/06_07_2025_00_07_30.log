@@ -1,0 +1,17 @@
+[2025-06-07 00:07:31,985] 14 root - INFO - Starting data ingestion
+[2025-06-07 00:07:31,985] 24 root - INFO - Entered the data ingestion method or component
+[2025-06-07 00:07:32,723] 28 root - INFO - Read the dataset as dataframe
+[2025-06-07 00:07:34,017] 33 root - INFO - Train Test split initiated
+[2025-06-07 00:07:35,361] 41 root - INFO - Ingestion of data is completed
+[2025-06-07 00:07:35,364] 17 root - INFO - Data ingestion completed. Train data: artifacts/train.csv, Test data: artifacts/test.csv
+[2025-06-07 00:07:35,364] 20 root - INFO - Starting data transformation
+[2025-06-07 00:07:36,151] 60 root - INFO - Train and test CSV files loaded.
+[2025-06-07 00:07:38,606] 70 root - INFO - Cleaned Resume_str columns in both train and test data.
+[2025-06-07 00:07:38,608] 84 root - INFO - Target labels encoded.
+[2025-06-07 00:07:39,800] 91 root - INFO - TF-IDF transformation completed.
+[2025-06-07 00:07:39,813] 99 root - INFO - TF-IDF vectorizer saved successfully.
+[2025-06-07 00:07:39,815] 25 root - INFO - Data transformation completed. Preprocessor saved at: artifacts/preprocessor.pkl
+[2025-06-07 00:07:39,815] 28 root - INFO - Starting model training
+[2025-06-07 00:07:39,815] 32 root - INFO - Starting model training pipeline for classification
+[2025-06-07 00:37:14,446] 80 root - INFO - Best model found: XGBoost with accuracy: 0.7364
+[2025-06-07 00:37:14,448] 34 root - ERROR - Error in training pipeline: Error occurred in python script name [/Users/rkuma07/Desktop/Resume_Filtering/src/components/model_trainer.py] line number [87] error message [need to call fit or load_model beforehand]

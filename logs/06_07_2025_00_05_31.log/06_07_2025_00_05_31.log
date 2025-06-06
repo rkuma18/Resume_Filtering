@@ -1,0 +1,17 @@
+[2025-06-07 00:05:33,261] 9 root - INFO - Starting data ingestion
+[2025-06-07 00:05:33,261] 24 root - INFO - Entered the data ingestion method or component
+[2025-06-07 00:05:33,739] 28 root - INFO - Read the dataset as dataframe
+[2025-06-07 00:05:34,332] 33 root - INFO - Train Test split initiated
+[2025-06-07 00:05:35,159] 41 root - INFO - Ingestion of data is completed
+[2025-06-07 00:05:35,163] 12 root - INFO - Data ingestion completed
+[2025-06-07 00:05:35,163] 15 root - INFO - Starting data transformation
+[2025-06-07 00:05:35,662] 60 root - INFO - Train and test CSV files loaded.
+[2025-06-07 00:05:36,955] 70 root - INFO - Cleaned Resume_str columns in both train and test data.
+[2025-06-07 00:05:36,956] 84 root - INFO - Target labels encoded.
+[2025-06-07 00:05:37,568] 91 root - INFO - TF-IDF transformation completed.
+[2025-06-07 00:05:37,578] 99 root - INFO - TF-IDF vectorizer saved successfully.
+[2025-06-07 00:05:37,584] 20 root - INFO - Data transformation completed
+[2025-06-07 00:05:37,584] 23 root - INFO - Starting model training
+[2025-06-07 00:05:37,584] 32 root - INFO - Starting model training pipeline for classification
+[2025-06-07 00:32:12,678] 80 root - INFO - Best model found: XGBoost with accuracy: 0.7364
+[2025-06-07 00:32:12,679] 29 root - ERROR - Error in training pipeline: Error occurred in python script name [/Users/rkuma07/Desktop/Resume_Filtering/src/components/model_trainer.py] line number [87] error message [need to call fit or load_model beforehand]

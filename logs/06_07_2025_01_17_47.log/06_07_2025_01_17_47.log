@@ -1,0 +1,67 @@
+[2025-06-07 01:17:49,616] 14 root - INFO - Starting data ingestion
+[2025-06-07 01:17:49,616] 24 root - INFO - Entered the data ingestion method or component
+[2025-06-07 01:17:50,114] 28 root - INFO - Read the dataset as dataframe
+[2025-06-07 01:17:50,935] 33 root - INFO - Train Test split initiated
+[2025-06-07 01:17:51,525] 41 root - INFO - Ingestion of data is completed
+[2025-06-07 01:17:51,528] 17 root - INFO - Data ingestion completed. Train data: artifacts/train.csv, Test data: artifacts/test.csv
+[2025-06-07 01:17:51,529] 20 root - INFO - Starting data transformation
+[2025-06-07 01:17:51,529] 65 root - INFO - Loading training and test data.
+[2025-06-07 01:17:53,436] 82 root - INFO - Resume text cleaned successfully.
+[2025-06-07 01:17:53,437] 91 root - INFO - Training label distribution: {'AVIATION': 96, 'HEALTHCARE': 95, 'DESIGNER': 88, 'ADVOCATE': 88, 'FITNESS': 98, 'CHEF': 94, 'FINANCE': 99, 'BANKING': 92, 'INFORMATION-TECHNOLOGY': 94, 'AUTOMOBILE': 30, 'AGRICULTURE': 55, 'CONSULTANT': 95, 'HR': 92, 'CONSTRUCTION': 78, 'BUSINESS-DEVELOPMENT': 93, 'DIGITAL-MEDIA': 71, 'PUBLIC-RELATIONS': 94, 'ENGINEERING': 97, 'ARTS': 85, 'SALES': 87, 'ACCOUNTANT': 89, 'TEACHER': 80, 'APPAREL': 77, 'BPO': 20}
+[2025-06-07 01:17:53,437] 98 root - INFO - Target labels encoded. Classes: ['ACCOUNTANT', 'ADVOCATE', 'AGRICULTURE', 'APPAREL', 'ARTS', 'AUTOMOBILE', 'AVIATION', 'BANKING', 'BPO', 'BUSINESS-DEVELOPMENT', 'CHEF', 'CONSTRUCTION', 'CONSULTANT', 'DESIGNER', 'DIGITAL-MEDIA', 'ENGINEERING', 'FINANCE', 'FITNESS', 'HEALTHCARE', 'HR', 'INFORMATION-TECHNOLOGY', 'PUBLIC-RELATIONS', 'SALES', 'TEACHER']
+[2025-06-07 01:17:54,393] 105 root - INFO - TF-IDF transformation completed.
+[2025-06-07 01:17:54,398] 112 root - INFO - TF-IDF vectorizer saved at: artifacts/preprocessor.pkl
+[2025-06-07 01:17:54,398] 119 root - INFO - Label encoder saved at: artifacts/label_encoder.pkl
+[2025-06-07 01:17:54,400] 25 root - INFO - Data transformation completed. Preprocessor saved at: artifacts/preprocessor.pkl
+[2025-06-07 01:17:54,400] 28 root - INFO - Starting model training
+[2025-06-07 01:17:54,400] 38 root - INFO - ⚙️  Starting model training pipeline for classification...
+[2025-06-07 01:17:54,400] 86 root - INFO - 🔍 Training model: Random Forest
+[2025-06-07 01:18:05,293] 101 root - INFO - ✅ Random Forest Accuracy: 0.6942
+[2025-06-07 01:18:05,293] 86 root - INFO - 🔍 Training model: Gradient Boosting
+[2025-06-07 01:34:24,058] 101 root - INFO - ✅ Gradient Boosting Accuracy: 0.7082
+[2025-06-07 01:34:24,058] 86 root - INFO - 🔍 Training model: Logistic Regression
+[2025-06-07 01:34:27,622] 101 root - INFO - ✅ Logistic Regression Accuracy: 0.6640
+[2025-06-07 01:34:27,622] 86 root - INFO - 🔍 Training model: XGBoost
+[2025-06-07 01:42:09,268] 101 root - INFO - ✅ XGBoost Accuracy: 0.7344
+[2025-06-07 01:42:09,269] 86 root - INFO - 🔍 Training model: Naive Bayes
+[2025-06-07 01:42:09,431] 101 root - INFO - ✅ Naive Bayes Accuracy: 0.5634
+[2025-06-07 01:42:09,431] 86 root - INFO - 🔍 Training model: SVC
+[2025-06-07 01:42:31,661] 101 root - INFO - ✅ SVC Accuracy: 0.6318
+[2025-06-07 01:42:31,661] 86 root - INFO - 🔍 Training model: AdaBoost
+[2025-06-07 01:42:45,007] 101 root - INFO - ✅ AdaBoost Accuracy: 0.5835
+[2025-06-07 01:42:45,007] 109 root - INFO - 🏆 Best Model: XGBoost with Accuracy: 0.7344
+[2025-06-07 01:42:45,019] 110 root - INFO - 🧪 Classification Report for Best Model:
+              precision    recall  f1-score   support
+
+           0       0.87      0.93      0.90        29
+           1       0.86      0.83      0.85        30
+           2       0.38      0.38      0.38         8
+           3       0.50      0.45      0.47        20
+           4       0.53      0.56      0.54        18
+           5       0.33      0.17      0.22         6
+           6       0.86      0.86      0.86        21
+           7       0.64      0.61      0.62        23
+           8       0.50      0.50      0.50         2
+           9       0.79      0.56      0.65        27
+          10       0.95      0.75      0.84        24
+          11       0.79      0.91      0.85        34
+          12       0.76      0.65      0.70        20
+          13       0.83      1.00      0.90        19
+          14       0.91      0.80      0.85        25
+          15       0.80      0.76      0.78        21
+          16       0.60      0.63      0.62        19
+          17       0.79      0.58      0.67        19
+          18       0.72      0.65      0.68        20
+          19       0.71      0.83      0.77        18
+          20       0.64      0.88      0.74        26
+          21       0.76      0.76      0.76        17
+          22       0.60      0.72      0.66        29
+          23       0.71      0.77      0.74        22
+
+    accuracy                           0.73       497
+   macro avg       0.70      0.69      0.69       497
+weighted avg       0.74      0.73      0.73       497
+
+[2025-06-07 01:42:45,036] 117 root - INFO - 💾 Best model saved to: artifacts/model.pkl
+[2025-06-07 01:42:45,788] 125 root - INFO - 📊 Confusion matrix saved at: artifacts/confusion_matrix.png
+[2025-06-07 01:42:45,789] 34 root - ERROR - Error in training pipeline: unsupported format string passed to dict.__format__
