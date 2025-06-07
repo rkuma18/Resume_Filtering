@@ -12,3 +12,4 @@ tqdm
 torch
 seaborn
 kagglehub
+streamlit

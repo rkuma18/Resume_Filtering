@@ -1,0 +1,113 @@
+[2025-06-07 02:40:04,886] 11 root - INFO - 🚀 Starting Resume Classification Pipeline
+[2025-06-07 02:40:04,886] 17 root - INFO - 📥 Step 1: Data Ingestion
+[2025-06-07 02:40:04,886] 25 root - INFO - 📥 Entered the data ingestion method
+[2025-06-07 02:40:05,367] 33 root - INFO - ✅ Loaded data: 2484 rows, 4 columns
+[2025-06-07 02:40:05,368] 41 root - INFO - 🧹 Null value summary:
+ID             0
+Resume_str     0
+Resume_html    0
+Category       0
+dtype: int64
+[2025-06-07 02:40:05,954] 46 root - INFO - 📄 Raw data saved.
+[2025-06-07 02:40:06,544] 59 root - INFO - 🔀 Train/test split complete.
+[2025-06-07 02:40:06,544] 60 root - INFO - ✅ Train shape: (1987, 4) | Test shape: (497, 4)
+[2025-06-07 02:40:06,548] 20 root - INFO - ✅ Data Ingestion Complete. Train: artifacts/train.csv, Test: artifacts/test.csv
+[2025-06-07 02:40:06,548] 23 root - INFO - 🧹 Step 2: Data Transformation
+[2025-06-07 02:40:06,548] 86 root - INFO - 📦 Loading training and test data
+[2025-06-07 02:44:54,163] 101 root - INFO - 🧼 Resume text cleaned and lemmatized.
+[2025-06-07 02:44:54,334] 106 root - INFO - 🧠 Engineered features added.
+[2025-06-07 02:44:54,334] 113 root - INFO - 🎯 Classes encoded: ['ACCOUNTANT', 'ADVOCATE', 'AGRICULTURE', 'APPAREL', 'ARTS', 'AUTOMOBILE', 'AVIATION', 'BANKING', 'BPO', 'BUSINESS-DEVELOPMENT', 'CHEF', 'CONSTRUCTION', 'CONSULTANT', 'DESIGNER', 'DIGITAL-MEDIA', 'ENGINEERING', 'FINANCE', 'FITNESS', 'HEALTHCARE', 'HR', 'INFORMATION-TECHNOLOGY', 'PUBLIC-RELATIONS', 'SALES', 'TEACHER']
+[2025-06-07 02:44:54,849] 120 root - INFO - 🔧 Preprocessing pipeline executed.
+[2025-06-07 02:44:54,854] 23 root - INFO - ✅ Object saved at: artifacts/preprocessor.pkl
+[2025-06-07 02:44:54,855] 23 root - INFO - ✅ Object saved at: artifacts/label_encoder.pkl
+[2025-06-07 02:44:54,855] 126 root - INFO - ✅ Preprocessor saved at: artifacts/preprocessor.pkl
+[2025-06-07 02:44:54,855] 127 root - INFO - ✅ Label encoder saved at: artifacts/label_encoder.pkl
+[2025-06-07 02:44:54,858] 28 root - INFO - ✅ Data Transformation Complete. Preprocessor: artifacts/preprocessor.pkl, Encoder: artifacts/label_encoder.pkl
+[2025-06-07 02:44:54,858] 31 root - INFO - 🧠 Step 3: Model Training
+[2025-06-07 02:44:54,858] 45 root - INFO - ⚙️  Starting model training pipeline for classification...
+[2025-06-07 02:44:54,858] 75 root - INFO - 🔍 Training model: Random Forest
+[2025-06-07 02:45:04,960] 87 root - INFO - ✅ Random Forest Accuracy: 0.6881 | Training time: 10.07 sec
+[2025-06-07 02:45:04,960] 75 root - INFO - 🔍 Training model: Gradient Boosting
+[2025-06-07 03:00:46,504] 87 root - INFO - ✅ Gradient Boosting Accuracy: 0.7626 | Training time: 941.52 sec
+[2025-06-07 03:00:46,510] 75 root - INFO - 🔍 Training model: Logistic Regression
+[2025-06-07 03:00:52,651] 87 root - INFO - ✅ Logistic Regression Accuracy: 0.6620 | Training time: 6.14 sec
+[2025-06-07 03:00:52,652] 75 root - INFO - 🔍 Training model: XGBoost
+[2025-06-07 03:08:10,541] 87 root - INFO - ✅ XGBoost Accuracy: 0.7706 | Training time: 437.88 sec
+[2025-06-07 03:08:10,545] 75 root - INFO - 🔍 Training model: Naive Bayes
+[2025-06-07 03:08:10,687] 96 root - WARNING - ⚠️ Skipping Naive Bayes due to error: 
+All the 3 fits failed.
+It is very likely that your model is misconfigured.
+You can try to debug the error by setting error_score='raise'.
+
+Below are more details about the failures:
+--------------------------------------------------------------------------------
+3 fits failed with the following error:
+Traceback (most recent call last):
+  File "/Users/rkuma07/Desktop/Resume_Filtering/venv/lib/python3.13/site-packages/sklearn/model_selection/_validation.py", line 859, in _fit_and_score
+    estimator.fit(X_train, y_train, **fit_params)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rkuma07/Desktop/Resume_Filtering/venv/lib/python3.13/site-packages/sklearn/base.py", line 1363, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/Users/rkuma07/Desktop/Resume_Filtering/venv/lib/python3.13/site-packages/sklearn/naive_bayes.py", line 762, in fit
+    self._count(X, Y)
+    ~~~~~~~~~~~^^^^^^
+  File "/Users/rkuma07/Desktop/Resume_Filtering/venv/lib/python3.13/site-packages/sklearn/naive_bayes.py", line 889, in _count
+    check_non_negative(X, "MultinomialNB (input X)")
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/rkuma07/Desktop/Resume_Filtering/venv/lib/python3.13/site-packages/sklearn/utils/validation.py", line 1824, in check_non_negative
+    raise ValueError(f"Negative values in data passed to {whom}.")
+ValueError: Negative values in data passed to MultinomialNB (input X).
+
+[2025-06-07 03:08:10,687] 75 root - INFO - 🔍 Training model: SVC
+[2025-06-07 03:08:31,432] 87 root - INFO - ✅ SVC Accuracy: 0.6378 | Training time: 19.56 sec
+[2025-06-07 03:08:31,432] 75 root - INFO - 🔍 Training model: AdaBoost
+[2025-06-07 03:08:44,172] 87 root - INFO - ✅ AdaBoost Accuracy: 0.4769 | Training time: 12.70 sec
+[2025-06-07 03:08:44,179] 109 root - INFO - 🏆 Best Model: XGBoost with Accuracy: 0.7706
+[2025-06-07 03:08:44,179] 110 root - INFO - 🧪 Classification Report:
+                        precision    recall  f1-score   support
+
+            ACCOUNTANT       0.82      0.96      0.88        24
+              ADVOCATE       0.78      0.88      0.82        24
+           AGRICULTURE       1.00      0.46      0.63        13
+               APPAREL       0.78      0.37      0.50        19
+                  ARTS       0.56      0.48      0.51        21
+            AUTOMOBILE       0.67      0.29      0.40         7
+              AVIATION       0.86      0.79      0.83        24
+               BANKING       0.88      0.65      0.75        23
+                   BPO       0.67      0.50      0.57         4
+  BUSINESS-DEVELOPMENT       0.74      0.83      0.78        24
+                  CHEF       0.95      0.75      0.84        24
+          CONSTRUCTION       0.95      0.91      0.93        22
+            CONSULTANT       0.58      0.61      0.60        23
+              DESIGNER       0.83      0.95      0.89        21
+         DIGITAL-MEDIA       0.70      0.74      0.72        19
+           ENGINEERING       0.81      0.88      0.84        24
+               FINANCE       0.77      0.83      0.80        24
+               FITNESS       0.76      0.83      0.79        23
+            HEALTHCARE       0.72      0.78      0.75        23
+                    HR       0.91      0.95      0.93        22
+INFORMATION-TECHNOLOGY       0.81      0.92      0.86        24
+      PUBLIC-RELATIONS       0.77      0.77      0.77        22
+                 SALES       0.59      0.74      0.65        23
+               TEACHER       0.65      0.85      0.74        20
+
+              accuracy                           0.77       497
+             macro avg       0.77      0.74      0.74       497
+          weighted avg       0.78      0.77      0.76       497
+
+[2025-06-07 03:08:44,196] 23 root - INFO - ✅ Object saved at: artifacts/model.pkl
+[2025-06-07 03:08:44,212] 23 root - INFO - ✅ Object saved at: artifacts/model_XGBoost_20250607_030844.pkl
+[2025-06-07 03:08:44,212] 121 root - INFO - 💾 Best model saved to: artifacts/model_XGBoost_20250607_030844.pkl
+[2025-06-07 03:08:44,651] 129 root - INFO - 📊 Confusion matrix saved at: artifacts/confusion_matrix.png
+[2025-06-07 03:08:44,651] 135 root - INFO - 📈 Model Comparison Summary:
+[2025-06-07 03:08:44,651] 137 root - INFO - XGBoost: 0.7706
+[2025-06-07 03:08:44,651] 137 root - INFO - Gradient Boosting: 0.7626
+[2025-06-07 03:08:44,651] 137 root - INFO - Random Forest: 0.6881
+[2025-06-07 03:08:44,651] 137 root - INFO - Logistic Regression: 0.6620
+[2025-06-07 03:08:44,651] 137 root - INFO - SVC: 0.6378
+[2025-06-07 03:08:44,651] 137 root - INFO - AdaBoost: 0.4769
+[2025-06-07 03:08:44,651] 137 root - INFO - Naive Bayes: 0.0000
+[2025-06-07 03:08:44,652] 35 root - INFO - 🏁 Pipeline Completed Successfully
+[2025-06-07 03:08:44,652] 36 root - INFO - 📊 Final Accuracy: 0.7706
+[2025-06-07 03:08:44,652] 37 root - INFO - 📁 Model saved at: artifacts/model_XGBoost_20250607_030844.pkl
+[2025-06-07 03:08:44,652] 38 root - INFO - 📊 Confusion Matrix: artifacts/confusion_matrix.png

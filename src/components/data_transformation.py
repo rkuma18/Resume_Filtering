@@ -1,132 +1,72 @@
 import sys
-from dataclasses import dataclass
 import os
 import re
 import pandas as pd
 import numpy as np
-from collections import Counter
-
-from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
-from sklearn.feature_extraction.text import TfidfVectorizer
-
+from dataclasses import dataclass
+from sentence_transformers import SentenceTransformer
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from src.exception import CustomException
 from src.logger import logging
 from src.utils import save_object
 
-
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.join("artifacts", "preprocessor.pkl")
-    label_encoder_path = os.path.join("artifacts", "label_encoder.pkl")
-
+    preprocessor_scaler_path: str = os.path.join("artifacts", "scaler.pkl")
+    label_encoder_path: str = os.path.join("artifacts", "label_encoder.pkl")
+    sentence_model_name: str = "sentence-transformers/all-MiniLM-L6-v2"
 
 class DataTransformation:
     def __init__(self):
-        self.data_transformation_config = DataTransformationConfig()
+        self.config = DataTransformationConfig()
+        self.model = SentenceTransformer(self.config.sentence_model_name)
+        self.scaler = StandardScaler()
+        self.skill_keywords = [
+            "python", "sql", "excel", "machine learning", "deep learning",
+            "power bi", "tableau", "data analysis", "project management", "aws", "azure"
+        ]
 
-    def clean_resume(self, text: str) -> str:
-        """
-        Clean the resume text using regex: remove URLs, mentions, special characters, etc.
-        """
-        try:
-            text = re.sub(r'http\S+|www\S+|https\S+', ' ', text, flags=re.IGNORECASE)
-            text = re.sub(r'\bRT\b|\bcc\b', ' ', text)
-            text = re.sub(r'#(\w+)', r'\1', text)
-            text = re.sub(r'@\w+', ' ', text)
-            text = re.sub(r'[^\x00-\x7f]', ' ', text)
-            text = re.sub(r'[%s]' % re.escape("""!"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"""), ' ', text)
-            text = re.sub(r'\s+', ' ', text).strip()
-            text = text.lower()
-            return text
-        except Exception as e:
-            raise CustomException(f"Error during text cleaning: {e}", sys)
+    def clean_text(self, text):
+        text = re.sub(r"http\S+|www\S+|https\S+", " ", text)
+        text = re.sub(r"[^a-zA-Z0-9 ]", " ", text)
+        text = re.sub(r"\s+", " ", text).strip().lower()
+        return text
 
-    def get_data_transformer_object(self):
-        """
-        Returns a TF-IDF vectorizer pipeline for text feature extraction.
-        """
-        try:
-            text_pipeline = Pipeline(
-                steps=[
-                    ("tfidf", TfidfVectorizer(
-                        max_features=5000,
-                        stop_words='english',
-                        strip_accents='unicode'
-                    ))
-                ]
-            )
-            return text_pipeline
-        except Exception as e:
-            raise CustomException(e, sys)
+    def extract_structured_features(self, df):
+        df["resume_length"] = df["Resume_str"].apply(lambda x: float(len(x.split())))
+        for skill in self.skill_keywords:
+            df[f"has_{skill.replace(' ', '_')}"] = df["Resume_str"].apply(lambda x: int(skill in x))
+        return df
 
     def initiate_data_transformation(self, train_path, test_path):
         try:
-            logging.info("Loading training and test data.")
             train_df = pd.read_csv(train_path)
             test_df = pd.read_csv(test_path)
 
-            # Validate required columns
-            required_columns = {"ID", "Resume_html", "Resume_str", "Category"}
-            if not required_columns.issubset(set(train_df.columns)) or not required_columns.issubset(set(test_df.columns)):
-                raise CustomException(f"Missing required columns: {required_columns}", sys)
+            train_df["Resume_str"] = train_df["Resume_str"].astype(str).apply(self.clean_text)
+            test_df["Resume_str"] = test_df["Resume_str"].astype(str).apply(self.clean_text)
 
-            # Drop unused columns
-            train_df.drop(columns=["ID", "Resume_html"], inplace=True)
-            test_df.drop(columns=["ID", "Resume_html"], inplace=True)
+            train_embed = self.model.encode(train_df["Resume_str"].tolist(), show_progress_bar=True)
+            test_embed = self.model.encode(test_df["Resume_str"].tolist(), show_progress_bar=True)
 
-            # Clean Resume text
-            train_df["Resume_str"] = train_df["Resume_str"].apply(self.clean_resume)
-            test_df["Resume_str"] = test_df["Resume_str"].apply(self.clean_resume)
+            train_df = self.extract_structured_features(train_df)
+            test_df = self.extract_structured_features(test_df)
 
-            logging.info("Resume text cleaned successfully.")
+            struct_cols = ["resume_length"] + [f"has_{kw.replace(' ', '_')}" for kw in self.skill_keywords]
+            train_struct = self.scaler.fit_transform(train_df[struct_cols])
+            test_struct = self.scaler.transform(test_df[struct_cols])
 
-            # Separate features and target
-            X_train = train_df["Resume_str"]
-            y_train = train_df["Category"]
-            X_test = test_df["Resume_str"]
-            y_test = test_df["Category"]
+            save_object(self.config.preprocessor_scaler_path, self.scaler)
 
-            # Show class distribution for reference
-            logging.info(f"Training label distribution: {dict(Counter(y_train))}")
+            X_train = np.hstack([train_embed, train_struct])
+            X_test = np.hstack([test_embed, test_struct])
 
-            # Encode target labels
-            label_encoder = LabelEncoder()
-            y_train_encoded = label_encoder.fit_transform(y_train)
-            y_test_encoded = label_encoder.transform(y_test)
+            le = LabelEncoder()
+            y_train = le.fit_transform(train_df["Category"])
+            y_test = le.transform(test_df["Category"])
+            save_object(self.config.label_encoder_path, le)
 
-            logging.info(f"Target labels encoded. Classes: {list(label_encoder.classes_)}")
-
-            # TF-IDF vectorization
-            preprocessing_obj = self.get_data_transformer_object()
-            X_train_tfidf = preprocessing_obj.fit_transform(X_train)
-            X_test_tfidf = preprocessing_obj.transform(X_test)
-
-            logging.info("TF-IDF transformation completed.")
-
-            # Save TF-IDF vectorizer
-            save_object(
-                file_path=self.data_transformation_config.preprocessor_obj_file_path,
-                obj=preprocessing_obj
-            )
-            logging.info(f"TF-IDF vectorizer saved at: {self.data_transformation_config.preprocessor_obj_file_path}")
-
-            # Save label encoder
-            save_object(
-                file_path=self.data_transformation_config.label_encoder_path,
-                obj=label_encoder
-            )
-            logging.info(f"Label encoder saved at: {self.data_transformation_config.label_encoder_path}")
-
-            # Return everything needed for training
-            return (
-                X_train_tfidf,
-                X_test_tfidf,
-                y_train_encoded,
-                y_test_encoded,
-                self.data_transformation_config.preprocessor_obj_file_path,
-                self.data_transformation_config.label_encoder_path
-            )
+            return X_train, X_test, y_train, y_test, self.config.preprocessor_scaler_path, self.config.label_encoder_path
 
         except Exception as e:
             raise CustomException(e, sys)

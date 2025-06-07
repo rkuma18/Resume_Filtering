@@ -1,0 +1,15 @@
+[2025-06-07 14:30:45,234] 54 datasets - INFO - PyTorch version 2.7.1 available.
+[2025-06-07 14:30:46,004] 11 root - INFO - 🚀 Starting pipeline
+[2025-06-07 14:30:46,005] 24 root - INFO - 📥 Reading source data
+[2025-06-07 14:30:46,846] 211 sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+[2025-06-07 14:30:46,846] 219 sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+[2025-06-07 14:31:03,297] 39 root - INFO - 🚀 Starting model training...
+[2025-06-07 14:31:03,297] 67 root - INFO - 🔍 Training Logistic Regression
+[2025-06-07 14:31:06,193] 67 root - INFO - 🔍 Training Random Forest
+[2025-06-07 14:31:11,736] 67 root - INFO - 🔍 Training Gradient Boosting
+[2025-06-07 14:43:18,229] 67 root - INFO - 🔍 Training XGBoost
+[2025-06-07 14:43:41,411] 67 root - INFO - 🔍 Training AdaBoost
+[2025-06-07 14:43:50,462] 67 root - INFO - 🔍 Training SVC
+[2025-06-07 14:43:55,349] 9 root - ERROR - ❌ Error in [Unknown] at line [Unknown]: 🚫 No model met the minimum accuracy threshold
+[2025-06-07 14:43:55,349] 9 root - ERROR - ❌ Error in [/Users/rkuma07/Desktop/Resume_Filtering/src/components/model_trainer.py] at line [108]: ❌ Error in [Unknown] at line [Unknown]: 🚫 No model met the minimum accuracy threshold
+[2025-06-07 14:43:55,349] 9 root - ERROR - ❌ Error in [/Users/rkuma07/Desktop/Resume_Filtering/main.py] at line [21]: ❌ Error in [/Users/rkuma07/Desktop/Resume_Filtering/src/components/model_trainer.py] at line [108]: ❌ Error in [Unknown] at line [Unknown]: 🚫 No model met the minimum accuracy threshold

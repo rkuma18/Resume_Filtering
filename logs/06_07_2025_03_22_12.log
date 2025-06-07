@@ -1,0 +1,90 @@
+[2025-06-07 03:22:14,532] 13 root - INFO - 🚀 Starting Resume Classification Pipeline
+[2025-06-07 03:22:14,532] 19 root - INFO - 📥 Step 1: Data Ingestion
+[2025-06-07 03:22:14,533] 25 root - INFO - 📥 Entered the data ingestion method
+[2025-06-07 03:22:15,038] 33 root - INFO - ✅ Loaded data: 2484 rows, 4 columns
+[2025-06-07 03:22:15,039] 41 root - INFO - 🧹 Null value summary:
+ID             0
+Resume_str     0
+Resume_html    0
+Category       0
+dtype: int64
+[2025-06-07 03:22:15,686] 46 root - INFO - 📄 Raw data saved.
+[2025-06-07 03:22:16,302] 59 root - INFO - 🔀 Train/test split complete.
+[2025-06-07 03:22:16,302] 60 root - INFO - ✅ Train shape: (1987, 4) | Test shape: (497, 4)
+[2025-06-07 03:22:16,305] 22 root - INFO - ✅ Data Ingestion Complete. Train: artifacts/train.csv, Test: artifacts/test.csv
+[2025-06-07 03:22:16,305] 25 root - INFO - 🧹 Step 2: Data Transformation
+[2025-06-07 03:22:16,305] 96 root - INFO - 📦 Loading training and test data
+[2025-06-07 03:27:02,932] 110 root - INFO - ✨ Resume text cleaned and lemmatized.
+[2025-06-07 03:27:03,215] 114 root - INFO - 🧠 Engineered features added.
+[2025-06-07 03:27:03,216] 120 root - INFO - 🎯 Classes encoded: ['ACCOUNTANT', 'ADVOCATE', 'AGRICULTURE', 'APPAREL', 'ARTS', 'AUTOMOBILE', 'AVIATION', 'BANKING', 'BPO', 'BUSINESS-DEVELOPMENT', 'CHEF', 'CONSTRUCTION', 'CONSULTANT', 'DESIGNER', 'DIGITAL-MEDIA', 'ENGINEERING', 'FINANCE', 'FITNESS', 'HEALTHCARE', 'HR', 'INFORMATION-TECHNOLOGY', 'PUBLIC-RELATIONS', 'SALES', 'TEACHER']
+[2025-06-07 03:27:05,213] 126 root - INFO - ⚖️ Preprocessing pipeline executed.
+[2025-06-07 03:27:05,222] 23 root - INFO - ✅ Object saved at: artifacts/preprocessor.pkl
+[2025-06-07 03:27:05,222] 23 root - INFO - ✅ Object saved at: artifacts/label_encoder.pkl
+[2025-06-07 03:27:05,222] 131 root - INFO - ✅ Preprocessor saved at: artifacts/preprocessor.pkl
+[2025-06-07 03:27:05,222] 132 root - INFO - ✅ Label encoder saved at: artifacts/label_encoder.pkl
+[2025-06-07 03:27:05,226] 30 root - INFO - ✅ Data Transformation Complete. Preprocessor: artifacts/preprocessor.pkl, Encoder: artifacts/label_encoder.pkl
+[2025-06-07 03:27:05,226] 33 root - INFO - 🧠 Step 3: Model Training
+[2025-06-07 03:27:05,226] 50 root - INFO - ⚙️  Starting model training pipeline for classification...
+[2025-06-07 03:27:05,226] 80 root - INFO - 🔍 Training model: Random Forest
+[2025-06-07 03:27:15,787] 108 root - INFO - ✅ Random Forest Accuracy: 0.7565 | F1 Score: 0.7374 | Training time: 10.52 sec
+[2025-06-07 03:27:15,787] 80 root - INFO - 🔍 Training model: Gradient Boosting
+[2025-06-07 03:46:10,041] 108 root - INFO - ✅ Gradient Boosting Accuracy: 0.7968 | F1 Score: 0.7947 | Training time: 1134.23 sec
+[2025-06-07 03:46:10,047] 80 root - INFO - 🔍 Training model: Logistic Regression
+[2025-06-07 03:46:17,686] 108 root - INFO - ✅ Logistic Regression Accuracy: 0.6962 | F1 Score: 0.6889 | Training time: 7.63 sec
+[2025-06-07 03:46:17,686] 80 root - INFO - 🔍 Training model: XGBoost
+[2025-06-07 03:54:35,515] 108 root - INFO - ✅ XGBoost Accuracy: 0.7968 | F1 Score: 0.7889 | Training time: 497.82 sec
+[2025-06-07 03:54:35,516] 80 root - INFO - 🔍 Training model: Naive Bayes
+[2025-06-07 03:54:35,518] 117 root - WARNING - ⚠️ Skipping Naive Bayes due to error: Negative values in data passed to MultinomialNB (input X).
+[2025-06-07 03:54:35,518] 80 root - INFO - 🔍 Training model: SVC
+[2025-06-07 03:55:00,888] 108 root - INFO - ✅ SVC Accuracy: 0.6439 | F1 Score: 0.6374 | Training time: 23.93 sec
+[2025-06-07 03:55:00,888] 80 root - INFO - 🔍 Training model: AdaBoost
+[2025-06-07 03:55:16,223] 108 root - INFO - ✅ AdaBoost Accuracy: 0.5755 | F1 Score: 0.5928 | Training time: 15.28 sec
+[2025-06-07 03:55:16,233] 136 root - INFO - 🏆 Best Model: Gradient Boosting with Accuracy: 0.7968
+[2025-06-07 03:55:16,233] 137 root - INFO - 🧪 Classification Report:
+                        precision    recall  f1-score   support
+
+            ACCOUNTANT       0.88      0.92      0.90        24
+              ADVOCATE       0.76      0.79      0.78        24
+           AGRICULTURE       0.60      0.46      0.52        13
+               APPAREL       0.38      0.47      0.42        19
+                  ARTS       0.48      0.48      0.48        21
+            AUTOMOBILE       0.33      0.14      0.20         7
+              AVIATION       0.95      0.75      0.84        24
+               BANKING       0.70      0.70      0.70        23
+                   BPO       1.00      0.50      0.67         4
+  BUSINESS-DEVELOPMENT       0.96      0.96      0.96        24
+                  CHEF       0.89      0.71      0.79        24
+          CONSTRUCTION       0.95      0.95      0.95        22
+            CONSULTANT       0.74      0.74      0.74        23
+              DESIGNER       0.88      1.00      0.93        21
+         DIGITAL-MEDIA       0.93      0.68      0.79        19
+           ENGINEERING       0.88      0.96      0.92        24
+               FINANCE       0.95      0.79      0.86        24
+               FITNESS       0.76      0.83      0.79        23
+            HEALTHCARE       0.83      0.87      0.85        23
+                    HR       0.96      1.00      0.98        22
+INFORMATION-TECHNOLOGY       0.92      1.00      0.96        24
+      PUBLIC-RELATIONS       0.78      0.82      0.80        22
+                 SALES       0.73      0.83      0.78        23
+               TEACHER       0.65      0.85      0.74        20
+
+              accuracy                           0.80       497
+             macro avg       0.79      0.76      0.76       497
+          weighted avg       0.80      0.80      0.79       497
+
+[2025-06-07 03:55:16,265] 23 root - INFO - ✅ Object saved at: artifacts/model.pkl
+[2025-06-07 03:55:16,294] 23 root - INFO - ✅ Object saved at: artifacts/model_Gradient Boosting_20250607_035516.pkl
+[2025-06-07 03:55:16,294] 149 root - INFO - 💾 Best model saved to: artifacts/model_Gradient Boosting_20250607_035516.pkl
+[2025-06-07 03:55:16,698] 156 root - INFO - 📊 Confusion matrix saved at: artifacts/confusion_matrix.png
+[2025-06-07 03:55:16,698] 160 root - INFO - 📈 Model Comparison Summary:
+[2025-06-07 03:55:16,698] 162 root - INFO - Gradient Boosting: Accuracy=0.7968, F1=0.7947
+[2025-06-07 03:55:16,698] 162 root - INFO - XGBoost: Accuracy=0.7968, F1=0.7889
+[2025-06-07 03:55:16,698] 162 root - INFO - Random Forest: Accuracy=0.7565, F1=0.7374
+[2025-06-07 03:55:16,698] 162 root - INFO - Logistic Regression: Accuracy=0.6962, F1=0.6889
+[2025-06-07 03:55:16,698] 162 root - INFO - SVC: Accuracy=0.6439, F1=0.6374
+[2025-06-07 03:55:16,698] 162 root - INFO - AdaBoost: Accuracy=0.5755, F1=0.5928
+[2025-06-07 03:55:16,698] 162 root - INFO - Naive Bayes: Accuracy=0.0000, F1=0.0000
+[2025-06-07 03:55:16,700] 37 root - INFO - 🏁 Pipeline Completed Successfully
+[2025-06-07 03:55:16,700] 38 root - INFO - 📊 Final Accuracy: 0.7968
+[2025-06-07 03:55:16,700] 39 root - INFO - 📁 Model saved at: artifacts/model_Gradient Boosting_20250607_035516.pkl
+[2025-06-07 03:55:16,700] 40 root - INFO - 📊 Confusion Matrix: artifacts/confusion_matrix.png

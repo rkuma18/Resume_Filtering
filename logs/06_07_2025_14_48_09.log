@@ -1,0 +1,30 @@
+[2025-06-07 14:48:12,175] 54 datasets - INFO - PyTorch version 2.7.1 available.
+[2025-06-07 14:48:12,891] 11 root - INFO - 🚀 Starting pipeline
+[2025-06-07 14:48:12,891] 24 root - INFO - 📥 Reading source data
+[2025-06-07 14:48:13,750] 211 sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: mps
+[2025-06-07 14:48:13,750] 219 sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+[2025-06-07 14:48:30,534] 48 root - INFO - 🚀 Starting model training...
+[2025-06-07 14:48:30,534] 78 root - INFO - 🔍 Training Random Forest
+[2025-06-07 14:48:46,906] 106 root - INFO - ✅ Random Forest Accuracy: 0.6579 | F1 Score: 0.6386 | Time: 16.35s
+[2025-06-07 14:48:46,907] 78 root - INFO - 🔍 Training Gradient Boosting
+[2025-06-07 15:14:08,849] 106 root - INFO - ✅ Gradient Boosting Accuracy: 0.5694 | F1 Score: 0.5641 | Time: 1521.92s
+[2025-06-07 15:14:08,849] 78 root - INFO - 🔍 Training Logistic Regression
+[2025-06-07 15:14:13,236] 106 root - INFO - ✅ Logistic Regression Accuracy: 0.7123 | F1 Score: 0.7072 | Time: 4.38s
+[2025-06-07 15:14:13,245] 78 root - INFO - 🔍 Training XGBoost
+[2025-06-07 15:17:29,458] 106 root - INFO - ✅ XGBoost Accuracy: 0.6559 | F1 Score: 0.6481 | Time: 196.20s
+[2025-06-07 15:17:29,459] 78 root - INFO - 🔍 Training Naive Bayes
+[2025-06-07 15:17:29,462] 115 root - WARNING - ⚠️ Skipping Naive Bayes due to error: Negative values in data passed to MultinomialNB (input X).
+[2025-06-07 15:17:29,462] 78 root - INFO - 🔍 Training SVC
+[2025-06-07 15:17:31,025] 106 root - INFO - ✅ SVC Accuracy: 0.6781 | F1 Score: 0.6686 | Time: 1.49s
+[2025-06-07 15:17:31,025] 78 root - INFO - 🔍 Training AdaBoost
+[2025-06-07 15:17:50,496] 106 root - INFO - ✅ AdaBoost Accuracy: 0.3622 | F1 Score: 0.3578 | Time: 19.44s
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 Random Forest → Accuracy: 0.6579, F1: 0.6386
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 Gradient Boosting → Accuracy: 0.5694, F1: 0.5641
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 Logistic Regression → Accuracy: 0.7123, F1: 0.7072
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 XGBoost → Accuracy: 0.6559, F1: 0.6481
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 Naive Bayes → Accuracy: 0.0000, F1: 0.0000
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 SVC → Accuracy: 0.6781, F1: 0.6686
+[2025-06-07 15:17:50,497] 125 root - INFO - 📊 AdaBoost → Accuracy: 0.3622, F1: 0.3578
+[2025-06-07 15:17:50,508] 147 root - INFO - 💾 Best model saved at: artifacts/model_Logistic Regression_20250607_151750.pkl
+[2025-06-07 15:17:50,984] 154 root - INFO - 📊 Confusion matrix saved at: artifacts/confusion_matrix.png
+[2025-06-07 15:17:50,985] 23 root - INFO - ✅ Model Saved At: artifacts/model_Logistic Regression_20250607_151750.pkl
